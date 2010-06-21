@@ -1,5 +1,10 @@
 Revision history for Perl extension Catalyst::Plugin::XMLRPC
 
+0.27
+===================================
+* Changes for adopting MRO::compat where not complete. Calls to next::method
+  instead of NEXT::...()
+
 0.26  Fri Sep 25 13:50:41 CEST 2009
 ===================================
 * Important notice: RPC::XML 0.69 introduced a backwards incompatible

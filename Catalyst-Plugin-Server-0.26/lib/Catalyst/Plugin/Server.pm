@@ -14,7 +14,7 @@
 
     sub setup_dispatcher {
         my $class = shift;
-        $class->NEXT::setup_dispatcher(@_);
+        $class->next::method(@_);
 
         ### Load Server class
         $class->server(Catalyst::Plugin::Server::Backend->new($class));
@@ -32,7 +32,7 @@
             $c->log->warn(  "Request class no longer inherits from " .
                             "$ReqClass -- this may break things!" );
         }
-        $c->NEXT::prepare_action( @_ );
+        $c->next::method( @_ );
     }
 }
 
