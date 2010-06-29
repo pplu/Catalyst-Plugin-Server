@@ -7,7 +7,6 @@ use FindBin;
 use lib "$FindBin::Bin/lib";
 
 use Test::More;
-BEGIN { plan skip_all => 'Broken tests'; exit; }
 
 use Catalyst::Test 'TestApp';
 use RPC::XML;
@@ -32,6 +31,8 @@ $RPC::XML::ENCODING = 'UTF-8';
 my $entrypoint = 'http://localhost/rpc';
 
 run_tests();
+
+done_testing();
 
 sub run_tests {
 
