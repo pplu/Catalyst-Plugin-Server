@@ -24,7 +24,7 @@ Catalyst::Plugin::XMLRPC - DEPRECATED Dispatch XMLRPC methods with Catalyst
     use Catalyst qw/XMLRPC/;
 
     # Public action to redispatch somewhere in a controller
-    sub entrypoint : Global : Action('XMLRPC') {}
+    sub entrypoint : Global : ActionClass('XMLRPC') {}
 
     # Methods with XMLRPC attribute in any controller
     sub echo : XMLRPC('myAPI.echo') {
