@@ -13,7 +13,6 @@ sub json_rpc {
     my $content = do { local $/; <$body> };
 
     my $req;
-    $c->log->debug('JSONRPC: ' . $content);
     eval { $req = JSON::from_json($content) };
     if ($@ || !$req) {
         $c->log->debug(qq/Invalid JSON-RPC request: "$@"/);
@@ -30,13 +29,9 @@ sub json_rpc {
     my $method = $attrs->{method} || $req->{method};
     if ($method) {
         my $class = $attrs->{class} || caller(0);
-        if (my $code = $class->can($method)) {
+         if (my $action = $c->component($class)->action_for($method)){
 
-            my $remote;
-            my $attrs = attributes::get($code) || [];
-            for my $attr (@$attrs) {
-                $remote++ if $attr eq 'Remote';
-            }
+            my $remote = (defined $action->attributes->{'Remote'});
 
             if ($remote) {
                 $class = $c->components->{$class} || $class;
@@ -46,7 +41,7 @@ sub json_rpc {
                 my $action = Catalyst::Action->new(
                     {
                         name      => $method,
-                        code      => $code,
+                        code      => $action->code,
                         reverse   => "-> $name->$method",
                         class     => $name,
                         namespace => Catalyst::Utils::class2prefix(
