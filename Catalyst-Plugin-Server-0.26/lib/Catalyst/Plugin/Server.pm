@@ -46,7 +46,7 @@
     sub new {
         my $class = shift;
         my $c = shift;
-        my $self = $class->SUPER::new( @_ );
+        my $self = $class->next::method( @_ );
     }
 
     sub register_server {

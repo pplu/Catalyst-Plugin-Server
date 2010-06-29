@@ -136,7 +136,7 @@ sub match {
     ### a default action
     return unless $c->req->path eq $name;
 
-    $self->SUPER::match( @_ );
+    $self->next::method( @_ );
 }
 
 

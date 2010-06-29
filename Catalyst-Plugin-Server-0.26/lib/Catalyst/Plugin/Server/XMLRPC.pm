@@ -465,7 +465,7 @@ Alias of $c->req->parameters
     sub new {
         my $class = shift;
         my $c = shift;
-        my $self = $class->SUPER::new( @_ );
+        my $self = $class->next::method( @_ );
 
         $self->c($c);
         $self->config( Catalyst::Plugin::Server::XMLRPC::Config->new( $c ) );
@@ -525,7 +525,7 @@ Alias of $c->req->parameters
 
         my $class = shift;
         my $c     = shift;
-        my $self  = $class->SUPER::new;
+        my $self  = $class->next::method;
 
         $self->prefix(   $c->config->{xmlrpc}->{prefix}    || $DefaultPrefix);
         $self->separator($c->config->{xmlrpc}->{separator} || $DefaultSep);
