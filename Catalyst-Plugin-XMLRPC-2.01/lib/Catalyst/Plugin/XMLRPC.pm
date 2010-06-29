@@ -7,7 +7,7 @@ use RPC::XML;
 use RPC::XML::ParserFactory 'XML::Parser';
 use Catalyst::Action;
 use Catalyst::Utils;
-use NEXT;
+use MRO::Compat;
 
 our $VERSION = '2.02';
 
@@ -107,7 +107,7 @@ sub xmlrpc {
 # Register our DispatchType
 sub setup_dispatcher {
     my $c = shift;
-    $c->NEXT::setup_dispatcher(@_);
+    $c->next::method(@_);
     push @{ $c->dispatcher->preload_dispatch_types },
       '+Catalyst::Plugin::XMLRPC::DispatchType::XMLRPC';
     return $c;
