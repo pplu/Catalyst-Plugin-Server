@@ -8,7 +8,9 @@ sub begin : Private {
     $c->res->header( 'X-Test-Class' => ref($self) );
 }
 
-sub rpc : Global : Action('XMLRPC') {
+sub rpc : Global : ActionClass('XMLRPC') {
+#  my ($self, $c) = @_; 
+#  $c->xmlrpc;
 }
 
 sub echo : XMLRPC('myAPI.echo') {

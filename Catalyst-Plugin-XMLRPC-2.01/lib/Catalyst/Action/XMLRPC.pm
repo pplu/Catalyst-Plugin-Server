@@ -1,12 +1,17 @@
 package Catalyst::Action::XMLRPC;
 
 use strict;
-use Moose::Role;
+use Moose;
+use namespace::autoclean;
+
+extends 'Catalyst::Action';
 
 after execute => sub {
     my ( $self, $controller, $c ) = @_;
     $c->xmlrpc;
 };
+
+__PACKAGE__->meta->make_immutable;
 
 =head1 NAME
 
