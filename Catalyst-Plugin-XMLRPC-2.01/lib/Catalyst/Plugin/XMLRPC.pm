@@ -9,7 +9,7 @@ use Catalyst::Action;
 use Catalyst::Utils;
 use NEXT;
 
-our $VERSION = '2.01';
+our $VERSION = '2.02';
 
 __PACKAGE__->mk_classdata('_xmlrpc_parser');
 __PACKAGE__->_xmlrpc_parser( RPC::XML::ParserFactory->new );
