@@ -25,12 +25,12 @@ Generates a nice debug-table containing the XMLRPCRegex methods.
 sub list {
     my ( $self, $c ) = @_;
     my $re = Text::SimpleTable->new( [ 36, 'XMLRPCRegex' ], [ 37, 'Private' ] );
-    for my $regex ( @{ $self->{compiled} } ) {
+    for my $regex ( @{ $self->{_compiled} } ) {
         my $action = $regex->{action};
         $re->row( $regex->{path}, "/$action" );
     }
     $c->log->debug( "Loaded XMLRPCRegex actions:\n" . $re->draw )
-      if ( @{ $self->{compiled} } );
+      if ( @{ $self->{_compiled} } );
 }
 
 =head2 $self->register( $c, $action )

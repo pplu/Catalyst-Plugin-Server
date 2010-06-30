@@ -6,7 +6,6 @@ use Text::SimpleTable;
 use Data::Dumper;
 
 __PACKAGE__->mk_accessors(qw/config/);
-__PACKAGE__->mk_ro_accessors(qw/paths/);
 
 =head1 NAME
 
@@ -71,9 +70,9 @@ sub methods {
     $self->config( $c->server->xmlrpc->config)
             unless $self->config;
 
-    for my $path ( sort keys %{ $self->{paths} } ) {
-        my $action = UNIVERSAL::isa($self->{paths}->{$path}, 'ARRAY') ?
-                $self->{paths}->{$path}->[0] : $self->{paths}->{$path};
+    for my $path ( sort keys %{ $self->{_paths} } ) {
+        my $action = UNIVERSAL::isa($self->{_paths}->{$path}, 'ARRAY') ?
+                $self->{_paths}->{$path}->[0] : $self->{_paths}->{$path};
         $path = "/$path" unless $path eq '/';
         my ($method) = $path =~ m|^/?(.*)$|;
         my $separator= $self->config->separator;
