@@ -4,7 +4,7 @@ use strict;
 use base 'Catalyst::Controller';
 
 ### accept every xmlrpc request here
-sub my_dispatcher : XMLRPCRegex('.') {
+sub my_dispatcher : XMLRPCRegex('^.$') {
      my( $self, $c ) = @_;
 
      ### return the name of the method you called
