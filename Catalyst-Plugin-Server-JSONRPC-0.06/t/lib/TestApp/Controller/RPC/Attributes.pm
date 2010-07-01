@@ -1,4 +1,4 @@
-package TestApp::Controller::RPC::Errors;
+package TestApp::Controller::RPC::Attributes;
 
 use strict;
 use base 'Catalyst::Controller';
