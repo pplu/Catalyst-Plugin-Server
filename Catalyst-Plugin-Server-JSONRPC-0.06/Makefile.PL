@@ -8,6 +8,7 @@ WriteMakefile(
         'Catalyst'                 => '5.66',
         'JSON::RPC::Common'        => '0.03',
         'JSON'                     => '2.0',
-        'Catalyst::Plugin::Server' => '0.01'
+        'Catalyst::Plugin::Server' => '0.01',
+        'MRO::Compat'              => 0,
     }
 );

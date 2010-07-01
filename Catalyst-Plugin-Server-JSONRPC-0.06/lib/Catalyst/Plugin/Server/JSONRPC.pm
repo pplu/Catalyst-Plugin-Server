@@ -251,6 +251,7 @@ Alias of $c->req->parameters
     use Data::Dumper;
     use JSON::RPC::Common::Procedure::Return;
     use JSON::RPC::Common::Marshal::HTTP;
+    use MRO::Compat;
 
     my $ServerClass = 'Catalyst::Plugin::Server::JSONRPC::Backend';
 
@@ -265,21 +266,21 @@ Alias of $c->req->parameters
     sub setup_engine {
         my $class = shift;
         $class->server->register_server( 'jsonrpc' => $ServerClass->new($class) );
-        $class->NEXT::setup_engine(@_);
+        $class->next::method(@_);
     }
     
     sub setup {
         my $class = shift;
         ### config is not yet loaded on setup_engine so load it here
         $class->server->jsonrpc->config( Catalyst::Plugin::Server::JSONRPC::Config->new($class) );
-        $class->NEXT::setup(@_);
+        $class->next::method(@_);
     }
     
     ### Will load our customized DispatchTypes into Catalyst
     sub setup_dispatcher {
         my $class = shift;
         ### Load custom DispatchTypes
-        $class->NEXT::setup_dispatcher(@_);
+        $class->next::method(@_);
         $class->dispatcher->preload_dispatch_types(
             @{ $class->dispatcher->preload_dispatch_types },
             qw/ +Catalyst::Plugin::Server::JSONRPC::DispatchType::JSONRPCPath
@@ -336,7 +337,7 @@ Alias of $c->req->parameters
 
                     ### run the rest of the prepare actions, we should have
                     ### an action object now
-                    $c->NEXT::prepare_action(@_);
+                    $c->next::method(@_);
 
                     ### restore the saved dispatchtypes
                     $c->dispatcher->dispatch_types($saved_dt);
@@ -363,7 +364,7 @@ Alias of $c->req->parameters
 
             ### we're no jsonrpc request, so just let others handle it
         } else {
-            $c->NEXT::prepare_action(@_);
+            $c->next::method(@_);
         }
     }
 
@@ -380,7 +381,7 @@ Alias of $c->req->parameters
         {
             $c->req->jsonrpc->run_method($c);
         } else {
-            $c->NEXT::dispatch(@_);
+            $c->next::method(@_);
         }
     }
 
@@ -400,7 +401,7 @@ Alias of $c->req->parameters
 
         ### always call finalize at the end, so Catalyst's final handler
         ### gets called as well
-        $c->NEXT::finalize(@_);
+        $c->next::method(@_);
 
     }
 
