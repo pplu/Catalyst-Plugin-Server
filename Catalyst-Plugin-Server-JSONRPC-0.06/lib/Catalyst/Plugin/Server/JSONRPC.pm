@@ -242,7 +242,7 @@ Alias of $c->req->parameters
 
     package Catalyst::Plugin::Server::JSONRPC;
 
-    our $VERSION = "0.06";
+    our $VERSION = "0.07";
 
     use strict;
     use warnings;
