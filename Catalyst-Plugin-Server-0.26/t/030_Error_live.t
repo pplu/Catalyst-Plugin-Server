@@ -20,6 +20,8 @@ use RPC::XML;
 use HTTP::Request;
 use Data::Dumper;
 
+use Scalar::Util 'reftype';
+
 ### Change config to show errors
 TestApp->server->xmlrpc->config->show_errors(1);
 
@@ -81,7 +83,7 @@ while ( my($meth,$data) = each %Methods ) {
     my $res = shoot((keys %Methods)[0], 'bLegH');
     my $data = RPC::XML::Parser->new->parse( $res->content )->value->value;
 
-    if (UNIVERSAL::isa($data, 'HASH') && $data->{faultString}) {
+    if ((reftype($data) eq 'HASH') && $data->{faultString}) {
         like($data->{faultString}, qr/Invalid XMLRPC request.*syntax error/s,'Got faultString "syntax error"');
     }
 }

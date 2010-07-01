@@ -324,12 +324,9 @@ Alias of $c->req->parameters
 
                     $c->dispatcher->dispatch_types(
                         [ grep {
-                            UNIVERSAL::isa(
-                                    $_, $dp_ns . 'XMLRPCPath'
-                                ) or
-                            UNIVERSAL::isa(
-                                    $_, $dp_ns . 'XMLRPCRegex'
-                                )
+                                $_->isa($dp_ns . 'XMLRPCPath')
+                                or
+                                $_->isa($dp_ns . 'XMLRPCRegex')
                             } @$saved_dt
                         ]
                     );
@@ -453,6 +450,7 @@ Alias of $c->req->parameters
 
     use base qw/Class::Accessor::Fast/;
     use Data::Dumper;
+    use Scalar::Util 'reftype';
 
     __PACKAGE__->mk_accessors( qw/
                                     dispatcher
@@ -488,7 +486,7 @@ Alias of $c->req->parameters
     sub add_private_method {
         my ($self, $name, $sub) = @_;
 
-        return unless ($name && UNIVERSAL::isa($sub,'CODE'));
+        return unless ($name && (reftype($sub) eq 'CODE'));
         $self->private_methods->{$name} = $sub;
         return 1;
     }
@@ -550,6 +548,7 @@ Alias of $c->req->parameters
 
     use RPC::XML;
     use RPC::XML::Parser;
+    use Scalar::Util 'reftype';
 
     use Data::Dumper;
     use Text::SimpleTable;
@@ -614,11 +613,10 @@ Alias of $c->req->parameters
             ### then we can assume it's key => value pairs in there
             ### and we will map them to $c->req->params
             $self->params(
-                @args == 1 && UNIVERSAL::isa($args[0], 'HASH')
+                (@args == 1 && (reftype($args[0]) eq 'HASH'))
                     ? $args[0]
                     : {}
             );
-
             ### build the relevant namespace, action and path 
             {   ### construct the forward path -- this allows catalyst to
                 ### do the hard work of dispatching for us
@@ -634,7 +632,7 @@ Alias of $c->req->parameters
                                 ) if $c->debug;
                 }
 
-                unless( UNIVERSAL::isa( $sep, 'Regexp' ) ) {
+                unless( ref($sep) eq 'Regexp' ) {
                     $c->log->debug( __PACKAGE__ . ": Your separator is not a ".
                                     "Regexp object -- This is not recommended"
                                 ) if $c->debug;

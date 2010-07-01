@@ -19,7 +19,7 @@ use Catalyst::Test 'TestApp';
 use RPC::XML;
 use HTTP::Request;
 use Data::Dumper;
-
+use Scalar::Util 'reftype';
 
 my %RpcArgs     = ( 1 => "b" );
 #my %RpcRv       = ( auto => 1, begin => 1, end => 1, input => \%RpcArgs );
@@ -63,7 +63,7 @@ while ( my($meth,$rv) = each %Methods ) {
     my $data = RPC::XML::Parser->new->parse( $res->content )->value->value;
     is_deeply( $data, $rv,     "   Return value as expected" );
 
-    if( ref $data and UNIVERSAL::isa( $data, 'HASH' ) ) {
+    if( ref $data and ( reftype($data) eq 'HASH' ) ) {
         ok( not(exists($data->{faultString})),
                                 "   No faultstring" );
         ok( not(exists($data->{faultCode})),

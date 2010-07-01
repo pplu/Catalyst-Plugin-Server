@@ -4,6 +4,7 @@ use strict;
 use base qw/Catalyst::DispatchType::Path/;
 use Text::SimpleTable;
 use Data::Dumper;
+use Scalar::Util 'reftype';
 
 __PACKAGE__->mk_accessors(qw/config/);
 
@@ -71,7 +72,7 @@ sub methods {
             unless $self->config;
 
     for my $path ( sort keys %{ $self->{_paths} } ) {
-        my $action = UNIVERSAL::isa($self->{_paths}->{$path}, 'ARRAY') ?
+        my $action = (reftype($self->{_paths}->{$path}) eq 'ARRAY') ?
                 $self->{_paths}->{$path}->[0] : $self->{_paths}->{$path};
         $path = "/$path" unless $path eq '/';
         my ($method) = $path =~ m|^/?(.*)$|;

@@ -19,6 +19,7 @@ use Catalyst::Test 'TestApp';
 use RPC::XML;
 use HTTP::Request;
 use Data::Dumper;
+use Scalar::Util 'reftype';
 
 my $EntryPoint  = 'http://localhost/rpc';
 my @Methods     = qw[a 1];
@@ -34,7 +35,7 @@ for my $meth ( @Methods ) {
     $req->header( 'Content-Type'    => 'text/xml' );
     $req->content( $str );
     my $res = request( $req );
-    
+   
     ok( $res,                   "Got response on '$meth'" );
     ok( $res->is_success,       "   Response successfull 2XX" );
     is( $res->code, 200,        "   Reponse code 200" );
@@ -42,7 +43,7 @@ for my $meth ( @Methods ) {
     my $data = RPC::XML::Parser->new->parse( $res->content )->value->value;
     is_deeply( $data, $meth,    "   Return value as expected" );
 
-    if( ref $data and UNIVERSAL::isa( $data, 'HASH' ) ) {
+    if( ref $data and ( reftype( $data ) eq 'HASH' ) ) {
         ok( not(exists($data->{faultString})),
                                 "   No faultstring" );
         ok( not(exists($data->{faultCode})),

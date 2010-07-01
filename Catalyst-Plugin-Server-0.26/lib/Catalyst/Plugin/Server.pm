@@ -28,7 +28,7 @@
 
         ### since we have a custom request class now, we have to
         ### be sure no one changed it from underneath us!
-        unless( UNIVERSAL::isa( $c->req, $ReqClass ) ) {
+        unless( $c->req->isa($ReqClass) ) {
             $c->log->warn(  "Request class no longer inherits from " .
                             "$ReqClass -- this may break things!" );
         }
