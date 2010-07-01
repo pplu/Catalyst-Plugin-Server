@@ -5,7 +5,7 @@ use warnings;
 
 BEGIN {
     use FindBin;
-    use lib "$FindBin::Bin/dispatch/lib";
+    use lib "$FindBin::Bin/lib";
     
     chdir 't' if -d 't';
     use lib qw[../lib inc];
