@@ -14,6 +14,29 @@ sub post_request_to_call {
 	$self->json_to_call( $content );
 }
 
+sub write_result_to_response {
+        my ( $self, $result, $response, @args ) = @_;
+
+        my %args = $self->result_to_response_params($result);
+
+        foreach my $key ( keys %args ) {
+                if ( $response->can($key) ) {
+                        $response->$key(delete $args{$key});
+                }
+        }
+
+        #Copied from base class
+        #JSON::RPC::Common::Marshal::HTTP introduced a "die" here. The
+        # following keys where left over... and we were getting a "BAH" in
+        # all Catalyst requests.
+        #           'Content_Length' => 92,
+        #           'Content_Type' => 'application/json'
+        # Had to comment it out:
+        #croak "BAH" if keys %args;
+
+        return 1;
+}
+
 __PACKAGE__->meta->make_immutable();
 
 __PACKAGE__
