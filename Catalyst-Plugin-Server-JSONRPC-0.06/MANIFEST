@@ -25,3 +25,4 @@ t/lib/TestApp/Controller/RPC/Attributes.pm
 t/lib/TestApp/Controller/RPC/Errors.pm
 t/lib/TestApp/Controller/RPC/Functions.pm
 t/lib/TestApp/Controller/RPC/Settings.pm
+t/dispatch/lib/TestApp/Controller/RPC.pm
