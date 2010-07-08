@@ -871,7 +871,9 @@ Michiel Ootjers (michiel@cpan.org)
 
 =head1 AUTHORS
 
-Sergey Nosenko (darknos@cpan.org)
+Original Author: Sergey Nosenko (darknos@cpan.org)
+
+Actual Maintainer: Jose Luis Martinez Torres JLMARTIN (jlmartinez@capside.com)
 
 L<http://code.google.com/p/catalyst-server-jsonrpc>
 
