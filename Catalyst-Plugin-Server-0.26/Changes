@@ -1,9 +1,16 @@
 Revision history for Perl extension Catalyst::Plugin::XMLRPC
 
-0.27
+0.28 
 ===================================
+* Upgrade the plugin for Catalyt 5.8 series
 * Changes for adopting MRO::compat where not complete. Calls to next::method
   instead of NEXT::...()
+* Change name of paths and compiled base class properties in Cat 5.8
+* Clone the result before serializing, as RPC::XML won't clone already seen
+  refs (thanks t0m)
+* Fix the test suite (some tests were lost from 0.24->0.26)
+* Don't warn about the breakage of XML::RPC, as the author has already
+  fixed the backcompat breakage
 
 0.26  Fri Sep 25 13:50:41 CEST 2009
 ===================================
