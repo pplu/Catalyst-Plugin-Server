@@ -26,4 +26,5 @@ t/lib/TestApp.pm
 t/lib/TestApp/Controller/RPC/Attributes.pm
 t/lib/TestApp/Controller/RPC/Errors.pm
 t/lib/TestApp/Controller/RPC/Functions.pm
+t/lib/TestApp/Controller/RPC/Regex.pm
 t/lib/TestApp/Controller/RPC/Settings.pm
