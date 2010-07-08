@@ -28,5 +28,6 @@ WriteMakefile(
                         'RPC::XML'          => '1.35',
                         'RPC::XML::Parser'  => '1.12',
                         'MRO::Compat'       => 0,
+			'Clone::Fast'       => 0,
                     }
 );
